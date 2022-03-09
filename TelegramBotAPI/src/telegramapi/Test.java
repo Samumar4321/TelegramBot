@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +76,35 @@ public class Test {
             }
         }
         return results;
+    }
+
+    public boolean sendMessage(int chat_id, String text) throws IOException {
+        String encode_txt = URLEncoder.encode(text, "UTF-8");
+        String jsonString = readJsonFromUrl("https://api.telegram.org/bot5219437388:AAG7PWHCynCCK5jGtEmeUpy6j6s1W-sI4ls/sendMessage?chat_id=" + chat_id + "&text=" + encode_txt);
+        JSONObject obj = new JSONObject(jsonString);
+        boolean ok = obj.getBoolean("ok");
+        if (ok) {
+            /* JSONArray arr = obj.getJSONArray("result");
+            for (int i = 0; i < arr.length(); i++) {
+                Message m = new Message();
+                int update_id = arr.getJSONObject(i).getInt("update_id");
+                JSONObject message = arr.getJSONObject(i).getJSONObject("message");
+                int message_id = message.getInt("message_id");
+                JSONObject from = message.getJSONObject("from");
+                Persona p_from = Persona.elaborateJSONObject(from);
+                JSONObject chat = message.getJSONObject("chat");
+                Chat p_chat = Chat.elaborateJSONObject(chat);
+                int date = message.getInt("date");
+                String text = message.getString("text");
+                m.chat = p_chat;
+                m.from = p_from;
+                m.update_id = update_id;
+                m.message_id = message_id;
+                m.date = date;
+                m.text = text;
+               
+            }*/
+        }
+        return false;
     }
 }

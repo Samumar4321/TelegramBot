@@ -36,4 +36,28 @@ public class Message {
         this.update_id = update_id;
     }
 
+    public Persona getFrom() {
+        return from;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public int getMessage_id() {
+        return message_id;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public int getDate() {
+        return date;
+    }
+
+    public int getUpdate_id() {
+        return update_id;
+    }
+
 }
