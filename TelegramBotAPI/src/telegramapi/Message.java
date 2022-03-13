@@ -11,7 +11,7 @@ package telegramapi;
  */
 public class Message {
 
-    Persona from;
+    Utente from;
     Chat chat;
     int message_id;
     String text;
@@ -27,7 +27,7 @@ public class Message {
         this.update_id = 0;
     }
 
-    public Message(Persona from, Chat chat, int message_id, String text, int date, int update_id) {
+    public Message(Utente from, Chat chat, int message_id, String text, int date, int update_id) {
         this.from = from;
         this.chat = chat;
         this.message_id = message_id;
@@ -36,7 +36,7 @@ public class Message {
         this.update_id = update_id;
     }
 
-    public Persona getFrom() {
+    public Utente getFrom() {
         return from;
     }
 
