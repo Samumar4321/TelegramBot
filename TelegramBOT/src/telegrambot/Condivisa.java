@@ -10,6 +10,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import telegramapi.Message;
+import telegramapi.Test;
 
 /**
  *
@@ -18,10 +19,12 @@ import telegramapi.Message;
 public class Condivisa {
 
     List<Message> results;
+    Test telegramLib;
     private static Condivisa instance;
 
     private Condivisa() {
         results = new ArrayList<Message>();
+        telegramLib = new Test();
     }
 
     public static Condivisa getInstance() {

@@ -76,7 +76,7 @@ public class Test {
                     m.text = text;
                     results.add(m);
                 }
-              //URL url = new URL("https://api.telegram.org/bot5219437388:AAG7PWHCynCCK5jGtEmeUpy6j6s1W-sI4ls/getUpdates?offset=" + results.get(results.size()-1).update_id);
+                //URL url = new URL("https://api.telegram.org/bot5219437388:AAG7PWHCynCCK5jGtEmeUpy6j6s1W-sI4ls/getUpdates?offset=" + results.get(results.size()-1).update_id);
             }
         }
         return results;
@@ -85,6 +85,19 @@ public class Test {
     public boolean sendMessage(int chat_id, String text) throws IOException {
         String encode_txt = URLEncoder.encode(text, "UTF-8");
         String jsonString = readJsonFromUrl("https://api.telegram.org/bot5219437388:AAG7PWHCynCCK5jGtEmeUpy6j6s1W-sI4ls/sendMessage?chat_id=" + chat_id + "&text=" + encode_txt);
+        if (!jsonString.equals("")) {
+            JSONObject obj = new JSONObject(jsonString);
+            boolean ok = obj.getBoolean("ok");
+            if (ok) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean sendLocation(int chat_id, double[] coord) throws IOException {
+      
+        String jsonString = readJsonFromUrl("https://api.telegram.org/bot5219437388:AAG7PWHCynCCK5jGtEmeUpy6j6s1W-sI4ls/sendLocation?chat_id=" + chat_id + "&latitude=" + coord[0] +"&longitude="+coord[1]);
         if (!jsonString.equals("")) {
             JSONObject obj = new JSONObject(jsonString);
             boolean ok = obj.getBoolean("ok");

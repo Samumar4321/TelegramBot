@@ -5,6 +5,9 @@
  */
 package telegrambot;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import telegramapi.*;
 
 /**
@@ -22,14 +25,38 @@ public class GestoreMessaggi extends Thread {
     @Override
     public void run() {
         while (true) {
-            for (Message m : c.results) {
+            c = Condivisa.getInstance();
+            if (c.results.size() > 0) {
+                Message m = c.results.get(0);
                 String text = m.getText();
-                if(text.contains("/"))
-                {
-                    String operation = text.strip();
-                    operation = operation.split(" ")[0];
-                    int i =0;
+                String operation = text.strip();
+                operation = operation.split(" ")[0];
+                switch (operation) {
+                    case "/città": {
+                        try {
+                            String citta = text.substring(7).strip();
+                            OpenStreetMaps maps = new OpenStreetMaps();
+                            double[] coord = maps.getPosition(citta);
+                            if (coord != null) {
+                                c.telegramLib.sendLocation(m.getChat().getId(), coord);
+                            }
+                            break;
+                        } catch (IOException ex) {
+                            Logger.getLogger(GestoreMessaggi.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+
+                    default: {
+                        try {
+                            c.telegramLib.sendMessage(m.getChat().getId(), "Comando non riconosciuto");
+                        } catch (IOException ex) {
+                            Logger.getLogger(GestoreMessaggi.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        break;
+                    }
                 }
+                c.results.remove(0);
+
             }
         }
     }

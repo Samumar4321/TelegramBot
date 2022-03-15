@@ -33,15 +33,14 @@ public class ThreadUpdate extends Thread {
     }
 
     @Override
-    public void run() {
-        Test t = new Test();
+    public void run() {       
         int size = 0;
         int last_update_id=-1;
         while (true) {
             try {
                 try {
-                    c.results.addAll(t.getUpdate(last_update_id));                    
-                    if (c.results != null && c.results.size() > 0) {                        
+                    c.results.addAll(c.telegramLib.getUpdate(last_update_id));                    
+                    if (c.results.size() > 0) {                        
                         size = c.results.size();
                         Message m;
                         m = c.results.get(c.results.size() - 1);
