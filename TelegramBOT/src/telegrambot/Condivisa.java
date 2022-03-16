@@ -20,11 +20,13 @@ public class Condivisa {
 
     List<Message> results;
     Test telegramLib;
+    GestoreFIle gf;
     private static Condivisa instance;
 
     private Condivisa() {
         results = new ArrayList<Message>();
         telegramLib = new Test();
+        gf = new GestoreFIle();
     }
 
     public static Condivisa getInstance() {

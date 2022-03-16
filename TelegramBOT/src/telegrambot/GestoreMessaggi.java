@@ -38,7 +38,10 @@ public class GestoreMessaggi extends Thread {
                             OpenStreetMaps maps = new OpenStreetMaps();
                             double[] coord = maps.getPosition(citta);
                             if (coord != null) {
+                                c.telegramLib.sendMessage(m.getChat().getId(), citta);
                                 c.telegramLib.sendLocation(m.getChat().getId(), coord);
+                                Utenti user = new Utenti(citta, m.getChat().getId(), coord[0], coord[1]);
+                                c.gf.saveLocation("locations.txt", user);
                             }
                             break;
                         } catch (IOException ex) {
