@@ -24,6 +24,7 @@ public class TelegramBOT {
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
         Condivisa c = Condivisa.getInstance();
+        c.users = c.gf.loadLocations(Condivisa.PATH);
         GestoreMessaggi gm = new GestoreMessaggi();
         gm.start();
         ThreadUpdate tup = new ThreadUpdate();

@@ -22,9 +22,12 @@ public class Condivisa {
     Test telegramLib;
     GestoreFIle gf;
     private static Condivisa instance;
+    public static String PATH = "locations.txt";
+    List<Utenti> users;
 
     private Condivisa() {
         results = new ArrayList<Message>();
+        users = new ArrayList<Utenti>();
         telegramLib = new Test();
         gf = new GestoreFIle();
     }
@@ -38,6 +41,17 @@ public class Condivisa {
             }
         }
         return instance;
+    }
+
+    public boolean checkDouplicate(Utenti u) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).id_chat == u.id_chat) {
+                users.remove(i);
+                users.add(u);
+                return true;
+            }
+        }
+        return false;
     }
 
 }

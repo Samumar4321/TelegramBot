@@ -24,9 +24,10 @@ public class GestoreFIle {
 
     }
 
-    public void saveLocations(String path, List<Utenti> users) throws FileNotFoundException, IOException {
+    public void appendLocations(String path, List<Utenti> users) throws FileNotFoundException, IOException {
+        System.out.println("APPENDS");
         File file = new File(path);
-        FileWriter fw = new FileWriter(file,true);
+        FileWriter fw = new FileWriter(file, true);
         BufferedWriter bw = new BufferedWriter(fw);
         String str = "";
         for (int i = 0; i < users.size(); i++) {
@@ -41,9 +42,10 @@ public class GestoreFIle {
         }
     }
 
-    public void saveLocation(String path, Utenti user) throws FileNotFoundException, IOException {
+    public void appendLocation(String path, Utenti user) throws FileNotFoundException, IOException {
+        System.out.println("APPEND");
         File file = new File(path);
-        FileWriter fw = new FileWriter(file,true);
+        FileWriter fw = new FileWriter(file, true);
         BufferedWriter bw = new BufferedWriter(fw);
         String str = "";
         str += user.toCSV() + "\n";
@@ -51,6 +53,39 @@ public class GestoreFIle {
 
         } else {
             bw.append(str);
+            bw.close();
+        }
+    }
+
+    public void saveLocations(String path, List<Utenti> users) throws FileNotFoundException, IOException {
+        System.out.println("WRITES");
+        File file = new File(path);
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        String str = "";
+        for (int i = 0; i < users.size(); i++) {
+            str += users.get(i).toCSV() + "\n";
+        }
+        if (str.equals("")) {
+
+        } else {
+            bw.write(str);
+            bw.close();
+
+        }
+    }
+
+    public void saveLocation(String path, Utenti user) throws FileNotFoundException, IOException {
+        System.out.println("WRITE");
+        File file = new File(path);
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        String str = "";
+        str += user.toCSV() + "\n";
+        if (str.equals("")) {
+
+        } else {
+            bw.write(str);
             bw.close();
         }
     }
