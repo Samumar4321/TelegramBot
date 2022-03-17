@@ -32,6 +32,18 @@ public class GestoreMessaggi extends Thread {
                 String operation = text.strip();
                 operation = operation.split(" ")[0];
                 switch (operation) {
+                    case "/help": {
+                        try {
+                            String comandi = "/help (visualizza guida con elenco dei comandi)\n"
+                                    + "/città + spazio + nomecittà (permette di impostare la città di residenza)\n";
+                            c.telegramLib.sendMessage(m.getChat().getId(), "---ELENCO COMANDI---");
+                            c.telegramLib.sendMessage(m.getChat().getId(), comandi);
+                            break;
+                        } catch (IOException ex) {
+                            Logger.getLogger(GestoreMessaggi.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+
                     case "/città": {
                         try {
                             String citta = text.substring(7).strip();
@@ -43,9 +55,7 @@ public class GestoreMessaggi extends Thread {
                                 Utenti user = new Utenti(citta, m.getChat().getId(), coord[0], coord[1]);
                                 if (!c.checkDouplicate(user)) {
                                     c.gf.appendLocation(Condivisa.PATH, user);
-                                }
-                                else
-                                {
+                                } else {
                                     c.gf.saveLocations(Condivisa.PATH, c.users);
                                 }
 
