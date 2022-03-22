@@ -11,6 +11,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,4 +106,18 @@ public class GestoreFIle {
         return users;
     }
 
+    public void saveFileFromURL(String url, String path) throws MalformedURLException, IOException {
+        URL u = new URL(url);
+        InputStreamReader in = new InputStreamReader(u.openStream());
+        BufferedReader br = new BufferedReader(in);
+        FileWriter fw = new FileWriter(path);
+        BufferedWriter bw = new BufferedWriter(fw);
+        for (String line = ""; (line = br.readLine()) != null;) {
+            line += "\n";
+            bw.write(line);
+        }
+        bw.close();
+        br.close();
+
+    }
 }
