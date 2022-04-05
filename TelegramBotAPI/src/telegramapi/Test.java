@@ -75,8 +75,7 @@ public class Test {
                     m.date = date;
                     m.text = text;
                     results.add(m);
-                }
-                //URL url = new URL("https://api.telegram.org/bot5219437388:AAG7PWHCynCCK5jGtEmeUpy6j6s1W-sI4ls/getUpdates?offset=" + results.get(results.size()-1).update_id);
+                }                
             }
         }
         return results;
